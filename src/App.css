@@ -1,0 +1,23 @@
+:root {
+  --border-color: #aaa;
+  --primary-color: #1da1f2;
+  --error-letter-color: #ff3a3a;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  height: 100vh;
+  display: grid;
+  place-content: center;
+  background: var(--primary-color);
+}
