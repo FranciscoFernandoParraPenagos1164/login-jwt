@@ -9,15 +9,17 @@ export const StyledInput = styled.div({
 
   ".label": {
     fontSize: "1rem",
+    color: "var(--label-color)",
   },
 
   ".input": {
     width: "100%",
-    fontSize: "1.4rem",
+    fontSize: "1.3rem",
     outline: "none",
     borderRadius: "15px",
-    padding: ".4rem",
+    padding: ".6rem",
     border: "1px solid var(--border-color)",
+    color: "var(--text-color)",
   },
 
   span: {

@@ -30,15 +30,9 @@ export function SesionContextProvider({children}) {
   }
 
   function refresh() {
-    return getRefreshToken(session.refreshToken).then((data) => {
-      console.log(session.refreshToken);
-
+    getRefreshToken(session.refreshToken).then(({data}) => {
       sessionStorage.setItem("user-access-token", data.accessToken);
-      setSesion({
-        logEd: true,
-        refreshToken: session.refreshToken,
-        accesToken: data.accessToken,
-      });
+      setSesion({...session, accessToken: data.accessToken});
     });
   }
 

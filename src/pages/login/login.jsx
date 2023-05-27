@@ -1,16 +1,10 @@
-import {useRef, useContext, useState, useEffect} from "react";
+import {useRef, useContext, useState} from "react";
 import LoginView from "./view";
 import {SessionContext} from "../../context/sesion-context";
-import {navigate} from "wouter/use-location";
+import {Redirect} from "wouter";
 
 function LogIn() {
   const {session, logIn} = useContext(SessionContext);
-
-  useEffect(() => {
-    if (session.logEd) {
-      navigate("/home");
-    }
-  }, [session]);
 
   const userNameRef = useRef();
   const passwordRef = useRef();
@@ -28,7 +22,7 @@ function LogIn() {
     });
   }
 
-  return <LoginView userNameRef={userNameRef} passwordRef={passwordRef} onSubmitForm={handleSubmitForm} failedLogin={faildeLogIn} />;
+  return session.logEd ? <Redirect to="/home" /> : <LoginView userNameRef={userNameRef} passwordRef={passwordRef} onSubmitForm={handleSubmitForm} failedLogin={faildeLogIn} />;
 }
 
 export default LogIn;

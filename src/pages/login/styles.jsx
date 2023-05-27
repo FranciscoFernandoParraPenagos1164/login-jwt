@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyledLogin = styled.div({
-  background: "#fff",
+  background: "var(--background-pages)",
   padding: "1rem",
   fontSize: "1rem",
   borderRadius: "15px",
@@ -40,5 +40,12 @@ export const StyledLogin = styled.div({
       textDecoration: "none",
       color: "var(--primary-color)",
     },
+  },
+
+  "@media (max-width: 769px)": {
+    width: "100vw",
+    height: "100vh",
+    borderRadius: "0",
+    justifyContent: "center",
   },
 });
