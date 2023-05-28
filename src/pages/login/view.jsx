@@ -10,7 +10,7 @@ function LoginView({userNameRef, passwordRef, onSubmitForm, failedLogin}) {
         <Input reference={userNameRef} required={true}>
           username
         </Input>
-        <Input reference={passwordRef} required={true}>
+        <Input reference={passwordRef} required={true} type="password">
           password
         </Input>
         {failedLogin && <span>the username or password is incorrect</span>}

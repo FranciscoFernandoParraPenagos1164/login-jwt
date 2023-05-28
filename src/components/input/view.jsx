@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {StyledInput} from "./styles";
-function InputView({label, reference, required}) {
+function InputView({label, reference, required, type}) {
   const [valid, setValid] = useState(true);
 
   function handleInvalidInput(e) {
@@ -17,7 +17,7 @@ function InputView({label, reference, required}) {
   return (
     <StyledInput>
       <label className="label">{label}</label>
-      <input type="text" className="input" ref={reference} required={required} onInvalid={handleInvalidInput} onChange={handleChangeInput} />
+      <input type={type} className="input" ref={reference} required={required} onInvalid={handleInvalidInput} onChange={handleChangeInput} />
       {valid || <span>this field is mandatory</span>}
     </StyledInput>
   );
