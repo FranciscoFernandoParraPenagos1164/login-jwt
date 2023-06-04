@@ -1,24 +1,11 @@
-import {useState} from "react";
 import {StyledInput} from "./styles";
-function InputView({label, reference, required, type}) {
-  const [valid, setValid] = useState(true);
 
-  function handleInvalidInput(e) {
-    e.preventDefault();
-    setValid(false);
-  }
-
-  function handleChangeInput(e) {
-    if (e.target.value && !valid) {
-      setValid(true);
-    }
-  }
-
+function InputView({label, reference, required, type, valid, onInvalidInput, onChangeInput}) {
   return (
     <StyledInput>
       <label className="label">{label}</label>
-      <input type={type} className="input" ref={reference} required={required} onInvalid={handleInvalidInput} onChange={handleChangeInput} />
-      {valid || <span>this field is mandatory</span>}
+      <input type={type} className="input" ref={reference} required={required} onInvalid={onInvalidInput} onChange={onChangeInput} />
+      {valid || <span>{type === "email" ? "please enter a valid email" : "this field is mandatory"}</span>}
     </StyledInput>
   );
 }

@@ -1,14 +1,20 @@
 import styled from "styled-components";
 
 export const StyledLogin = styled.div({
-  background: "var(--background-pages)",
-  padding: "1rem",
-  fontSize: "1rem",
-  borderRadius: "15px",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  rowGap: ".8rem",
+  height: "100vh",
+  display: "grid",
+  placeItems: "center",
+
+  ".login": {
+    background: "var(--background-pages)",
+    padding: "1rem",
+    fontSize: "1rem",
+    borderRadius: "15px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    rowGap: ".8rem",
+  },
 
   form: {
     display: "flex",

@@ -5,7 +5,12 @@ function UserView({name, photo, email, id, isEnabled}) {
   return (
     <StyledUser>
       <div className="profile">
-        <img src={photo || userPNG}></img>
+        <img
+          src={photo || userPNG}
+          onError={(e) => {
+            e.target.src = userPNG;
+          }}
+        ></img>
         <h3>{name}</h3>
       </div>
       <div className="email">

@@ -5,18 +5,12 @@ import {Redirect} from "wouter";
 import {getUsers} from "../../services/users";
 
 function Home() {
-  const {session, refresh} = useContext(SessionContext);
+  const {session} = useContext(SessionContext);
 
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    getUsers(session.accessToken).then((response) => {
-      if (response.statusCode === 401) {
-        refresh();
-        return;
-      }
-      setUsers(response.data);
-    });
+    getUsers().then((users) => setUsers(users));
   }, [session]);
 
   return !session.logEd ? <Redirect to="/" /> : <HomeView>{users}</HomeView>;

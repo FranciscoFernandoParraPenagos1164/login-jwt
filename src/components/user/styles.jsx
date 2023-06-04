@@ -59,11 +59,7 @@ export const StyledUser = styled.div({
     boxShadow: "0 0 3px 1.5px #FF2727",
   },
 
-  "@media screen and (min-width: 1480px)": {
-    width: "22%",
-  },
-
-  "@media screen and (min-width: 1024px) and (max-width: 1480px)": {
+  "@media screen and (min-width: 1024px)": {
     width: "30%",
   },
 

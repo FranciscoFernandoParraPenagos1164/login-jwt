@@ -15,8 +15,8 @@ function LogIn() {
     e.preventDefault();
     const userName = userNameRef.current.value;
     const password = passwordRef.current.value;
-    logIn(userName, password).then((code) => {
-      if (code !== "OK") {
+    logIn(userName, password).then((isLoged) => {
+      if (!isLoged) {
         setFaildeLogIn(true);
       }
     });

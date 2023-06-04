@@ -1,42 +1,46 @@
-import {useState, createContext} from "react";
-import {signIn, getRefreshToken} from "../services/auth";
+import {useState, createContext, useEffect} from "react";
+import {signIn} from "../services/auth";
+import {getUser} from "../services/users";
 
 const SessionContext = createContext({});
 
-const refreshToken = localStorage.getItem("user-refresh-token");
-const accessToken = sessionStorage.getItem("user-access-token");
+const userRefreshToken = localStorage.getItem("user-refresh-token");
+const userId = localStorage.getItem("user-id");
 
 export function SesionContextProvider({children}) {
   const [session, setSesion] = useState({
-    logEd: Boolean(refreshToken),
-    refreshToken,
-    accessToken,
+    logEd: Boolean(userRefreshToken) && Boolean(userId),
+    userId,
   });
 
+  useEffect(() => {
+    if (!session.logEd) {
+      return;
+    }
+
+    getUser(session.userId).then(({name, photo}) => {
+      setSesion({...session, name, photo});
+    });
+  }, []);
+
   function logIn(username, password) {
-    return signIn(username, password).then(({code, data}) => {
-      if (code === "OK") {
-        localStorage.setItem("user-refresh-token", data.refreshToken);
-        sessionStorage.setItem("user-access-token", data.accessToken);
-
-        setSesion({
-          logEd: true,
-          refreshToken: data.refreshToken,
-          accessToken: data.accessToken,
-        });
+    return signIn(username, password).then(({name, photo, id, code}) => {
+      if (code !== "OK") {
+        return false;
       }
-      return code;
+
+      setSesion({
+        logEd: true,
+        userId: id,
+        name,
+        photo,
+      });
+
+      return true;
     });
   }
 
-  function refresh() {
-    getRefreshToken(session.refreshToken).then(({data}) => {
-      sessionStorage.setItem("user-access-token", data.accessToken);
-      setSesion({...session, accessToken: data.accessToken});
-    });
-  }
-
-  return <SessionContext.Provider value={{session, logIn, refresh}}>{children}</SessionContext.Provider>;
+  return <SessionContext.Provider value={{session, logIn}}>{children}</SessionContext.Provider>;
 }
 
 export {SessionContext};
