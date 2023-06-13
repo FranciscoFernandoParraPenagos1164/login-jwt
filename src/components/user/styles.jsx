@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyledUser = styled.div({
-  border: "2px solid #c1c1c1",
+  border: "1px solid var(--primary-color)",
   borderRadius: "10px",
   padding: "16px",
   height: "fit-content",

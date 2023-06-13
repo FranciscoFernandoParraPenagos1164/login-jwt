@@ -4,12 +4,12 @@ import {getUser} from "../services/users";
 
 const SessionContext = createContext({});
 
-const userRefreshToken = localStorage.getItem("user-refresh-token");
-const userId = localStorage.getItem("user-id");
-
 export function SesionContextProvider({children}) {
+  const userRefreshToken = localStorage.getItem("user-refresh-token");
+  const userId = localStorage.getItem("user-id");
+
   const [session, setSesion] = useState({
-    logEd: Boolean(userRefreshToken) && Boolean(userId),
+    logEd: Boolean(userRefreshToken && userId),
     userId,
   });
 
@@ -18,7 +18,16 @@ export function SesionContextProvider({children}) {
       return;
     }
 
-    getUser(session.userId).then(({name, photo}) => {
+    getUser(session.userId).then((data) => {
+      console.log(data);
+
+      if (data.statusCode === 401) {
+        setSesion({logEd: false});
+        return;
+      }
+
+      const {name, photo} = data;
+
       setSesion({...session, name, photo});
     });
   }, []);

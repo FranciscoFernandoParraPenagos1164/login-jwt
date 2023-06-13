@@ -1,5 +1,5 @@
 import axios from "axios";
-import API_URL from "./baseApiUrl";
+import {API_URL} from "../config";
 
 const authInstance = axios.create({baseURL: `${API_URL}/v1/auth`});
 
@@ -25,6 +25,12 @@ export function refreshToken() {
 
   return authInstance
     .get("/refresh", {headers: {Authorization: `Bearer ${refreshToken}`}})
-    .then(({data}) => localStorage.setItem("user-access-token", data.data.accessToken))
-    .catch(({response}) => response.data);
+    .then(({data}) => {
+      localStorage.setItem("user-access-token", data.data.accessToken);
+      localStorage.setItem("user-refresh-token", data.data.refreshToken);
+    })
+    .catch(({response}) => {
+      localStorage.clear();
+      return response.status;
+    });
 }

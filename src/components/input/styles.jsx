@@ -4,7 +4,7 @@ export const StyledInput = styled.div({
   display: "flex",
   flexDirection: "column",
   alignItems: "flex-start",
-  width: "100%",
+  width: "40%",
   position: "relative",
 
   ".label": {

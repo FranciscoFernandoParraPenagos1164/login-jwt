@@ -7,8 +7,8 @@ function CreateUserView({userReference, emailReference, nameReference, passwordR
       <div className="create-user">
         <h1>Create an user</h1>
         <form onSubmit={onSubmitForm}>
-          <Input reference={userReference} required={true}>
-            User
+          <Input reference={userReference} required={true} type="date">
+            Date
           </Input>
           <Input reference={emailReference} required={true} type="email">
             Email

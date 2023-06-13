@@ -8,12 +8,29 @@ function Home() {
   const {session} = useContext(SessionContext);
 
   const [users, setUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
-    getUsers().then((users) => setUsers(users));
+    setIsLoading(true);
+    getUsers()
+      .then((users) => {
+        if (users === 401) {
+          setError(true);
+          return;
+        }
+        setUsers(users);
+      })
+      .finally(() => setIsLoading(false));
   }, [session]);
 
-  return !session.logEd ? <Redirect to="/" /> : <HomeView>{users}</HomeView>;
+  return !session.logEd ? (
+    <Redirect to="/" />
+  ) : (
+    <HomeView isLoading={isLoading} error={error}>
+      {users}
+    </HomeView>
+  );
 }
 
 export default Home;

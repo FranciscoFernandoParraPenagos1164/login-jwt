@@ -2,7 +2,15 @@ import {StyledHome} from "./styles";
 import {Link} from "wouter";
 import User from "../../components/user/user";
 
-function HomeView({children}) {
+function HomeView({isLoading, error, children}) {
+  if (isLoading) {
+    return <h1>loading</h1>;
+  }
+
+  if (error) {
+    return <h1>error</h1>;
+  }
+
   return (
     <StyledHome>
       <Link href="create-user">+</Link>
